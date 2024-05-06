@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    # comenta esta configuracion si queres que funcione con el cpu en lugar del gpu
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    # hasta aca
+
+  nodeapp:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+    working_dir: /app
+    command: ["npx", "ts-node", "src/server.ts"]
+    environment:
+      - NODE_ENV=development
