@@ -1,18 +1,17 @@
 version: '3.8'
 services:
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
-    # comenta esta configuracion si queres que funcione con el cpu en lugar del gpu
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    # hasta aca
+#   ollama:
+#     image: ollama/ollama:latest
+#     ports:
+#       - "11434:11434"
+#     # comenta esta configuracion si queres que funcione con el cpu en lugar del gpu
+#     deploy:
+#       resources:
+#         reservations:
+#           devices:
+#             - driver: nvidia
+#               count: 1
+#               capabilities: [gpu]
 
   nodeapp:
     build: 
